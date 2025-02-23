@@ -29,6 +29,7 @@ public class FixPriceProduct extends Product {
 
     @Override
     public void setTitle(String title) {
+        this.title = title;
 
     }
 
