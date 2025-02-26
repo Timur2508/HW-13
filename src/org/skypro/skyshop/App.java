@@ -1,51 +1,44 @@
 package org.skypro.skyshop;
 
-import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
+
     public static void main(String[] args) {
-        ProductBasket basket = new ProductBasket();
+        ProductBasket productBasket = new ProductBasket(5);
+        System.out.println("Добавление продуктов ");
+        productBasket.addProduct(new SimpleProduct("Рыба", 50));
+        productBasket.addProduct(new DiscountProduct("Мясо", 100, 20));
+        productBasket.addProduct(new FixPriceProduct("Сыр"));
+        productBasket.addProduct(new SimpleProduct("Конфеты", 50));
+        productBasket.addProduct(new SimpleProduct("Лук", 200));
+        System.out.println("Добавление продуктов - нет места");
+        productBasket.addProduct(new SimpleProduct("Лук", 200));
+        System.out.println("____________________________________");
+        System.out.println("Печать корзины");
+        productBasket.printMyBasket();
+        System.out.println("____________________________________");
+        System.out.println("Стоимость корзины");
+        int a = productBasket.getAllPrice();
+        System.out.println(a);
+        System.out.println("____________________________________");
+        System.out.println("Поиск товара - есть");
+        productBasket.isNoProductInBasket("Рыба");
+        System.out.println("____________________________________");
+        System.out.println("Поиск товара - нет");
+        productBasket.isNoProductInBasket("Пицуня");
+        System.out.println("____________________________________");
+        System.out.println("Обнулить корзину");
+        productBasket.clearBasket();
+        System.out.println("____________________________________");
+        System.out.println("Печать пустой корзины");
+        productBasket.printMyBasket();
+        System.out.println("____________________________________");
+        System.out.println("Стоимость пустой корзины");
+        System.out.println(productBasket.getAllPrice());
 
-        Product apple = new Product("Яблоко", 50);
-        Product bread = new Product("Хлеб", 30);
-        Product milk = new Product("Молоко", 40);
-        Product meat = new Product("Мясо", 150);
-        Product fish = new Product("Рыба", 200);
-        Product cheese = new Product("Сыр", 120);
-
-        System.out.println("Добавление продуктов в корзину:");
-        basket.addProduct(apple);
-        basket.addProduct(bread);
-        basket.addProduct(milk);
-        basket.addProduct(meat);
-        basket.addProduct(fish);
-
-        System.out.println("Попытка добавить продукт в заполненную корзину:");
-        basket.addProduct(cheese);
-
-        System.out.println("\nСодержимое корзины:");
-        basket.printBasket();
-
-        int totalCost = basket.getTotalCost();
-        System.out.println("\nОбщая стоимость корзины: " + totalCost);
-
-        boolean containsApple = basket.containsProduct("Яблоко");
-        System.out.println("Корзина содержит яблоко: " + containsApple);
-
-        boolean containsBanana = basket.containsProduct("Банан");
-        System.out.println("Корзина содержит банан: " + containsBanana);
-
-        basket.clearBasket();
-        System.out.println("\nКорзина очищена.");
-
-        System.out.println("\nСодержимое корзины:");
-        basket.printBasket();
-
-        totalCost = basket.getTotalCost();
-        System.out.println("Общая стоимость пустой корзины: " + totalCost);
-
-        containsApple = basket.containsProduct("Яблоко");
-        System.out.println("Корзина содержит яблоко: " + containsApple);
     }
 }
