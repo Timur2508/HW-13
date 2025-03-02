@@ -32,7 +32,7 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         if (!isFreePlace()) {
-            System.out.println("В корзине нет места. Возмите тележку.");
+            System.out.println("В корзине нет места. Возьмите тележку.");
             return;
         }
         for (int i = 0; i < productBasket.length; i++) {
@@ -53,7 +53,7 @@ public class ProductBasket {
         return allPrice;
     }
 
-    public void printMyBasket() {
+    public void printBasket() {
         if (isEmpty()) {
             System.out.println("Корзина пуста.");
             return;
@@ -71,15 +71,13 @@ public class ProductBasket {
         System.out.println("Специальных товаров: " + specialProduct);
     }
 
-    public boolean isNoProductInBasket(String productName) {
+    public void checkBasket(String productName) {
         for (Product product : productBasket) {
-            if (product.getTitle() == productName) {
+            if (product != null && product.getTitle().equals(productName)) {
                 System.out.println("Такой продукт есть в корзине");
-                return false;
             }
         }
         System.out.println("Такого продукта нет в корзине");
-        return true;
     }
 
     public void clearBasket() {
