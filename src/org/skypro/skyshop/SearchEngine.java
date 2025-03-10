@@ -21,8 +21,8 @@ public class SearchEngine {
         int foundCount = 0;
 
         for (Searchable item : searchables) {
-            if (item != null && item.searchTerm().contains(query)) {
-                searchables[foundCount++] = item;
+            if (item != null && item.getSearchTerm().contains(query)) {
+                results[foundCount++] = item;
                 if (foundCount == 5) {
                     break;
                 }

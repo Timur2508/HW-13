@@ -35,14 +35,4 @@ public class FixPriceProduct extends Product {
     @Override
     public void setPrice(double price) {
     }
-
-    @Override
-    public String searchTerm() {
-        return toString();
-    }
-
-    @Override
-    public String contentType() {
-        return "PRODUCT";
-    }
 }

@@ -12,12 +12,12 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         return toString();
     }
 
     @Override
-    public String contentType() {
+    public String getContentType() {
         return "ARTICLE";
     }
 
@@ -26,4 +26,3 @@ public class Article implements Searchable {
         return title + "\n" + text;
     }
 }
-

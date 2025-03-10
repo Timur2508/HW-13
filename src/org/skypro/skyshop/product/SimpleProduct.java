@@ -36,14 +36,4 @@ public class SimpleProduct extends Product {
     public String toString() {
         return "Наименование продукта: " + title + ", Стоимость: " + getPrice() ;
     }
-
-    @Override
-    public String searchTerm() {
-        return toString();
-    }
-
-    @Override
-    public String contentType() {
-        return "PRODUCT";
-    }
 }

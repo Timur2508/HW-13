@@ -1,6 +1,7 @@
 package org.skypro.skyshop.product;
 
 public class DiscountProduct extends Product {
+
     protected double basePrice;
     protected int discountInPercent;
 
@@ -37,15 +38,5 @@ public class DiscountProduct extends Product {
 
     @Override
     public void setTitle(String title) {
-    }
-
-    @Override
-    public String searchTerm() {
-        return toString();
-    }
-
-    @Override
-    public String contentType() {
-        return "PRODUCT";
     }
 }
