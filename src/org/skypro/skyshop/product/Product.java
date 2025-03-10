@@ -21,6 +21,16 @@ public abstract class Product implements Searchable {
     public abstract boolean isSpecial();
 
     @Override
+    public String getSearchTerm() {
+        return title;
+    }
+
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(title);
     }
@@ -29,5 +39,4 @@ public abstract class Product implements Searchable {
 
     @Override
     public abstract String toString();
-    }
-
+}
