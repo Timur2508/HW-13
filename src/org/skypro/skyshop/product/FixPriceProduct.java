@@ -3,7 +3,7 @@ package org.skypro.skyshop.product;
 public class FixPriceProduct extends Product {
     private static final int FIX_PRICE = 100;
 
-    public FixPriceProduct(String title){
+    public FixPriceProduct(String title) throws IllegalAccessException {
         super(title);
     }
 
@@ -34,5 +34,15 @@ public class FixPriceProduct extends Product {
 
     @Override
     public void setPrice(double price) {
+    }
+
+    @Override
+    public int countOccurrences(String searchTerm, String search) {
+        return 0;
+    }
+
+    @Override
+    public boolean search(String query) {
+        return false;
     }
 }

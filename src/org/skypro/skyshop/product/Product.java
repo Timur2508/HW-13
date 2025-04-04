@@ -8,7 +8,10 @@ public abstract class Product implements Searchable {
 
     protected String title;
 
-    public Product(String title) {
+    public Product(String title) throws IllegalAccessException {
+        if (title == null || title.isBlank()) {
+            throw new IllegalAccessException("название продукта не может быть пустым или состоять только из пробелов");
+        }
         this.title = title;
     }
 
@@ -33,6 +36,11 @@ public abstract class Product implements Searchable {
     @Override
     public int hashCode() {
         return Objects.hash(title);
+    }
+
+    @Override
+    public boolean search(String query) {
+        return title.toLowerCase().contains(query.toLowerCase());
     }
 
     public abstract void setPrice(double price);

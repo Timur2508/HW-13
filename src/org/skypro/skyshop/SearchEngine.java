@@ -8,6 +8,10 @@ public class SearchEngine {
         this.searchables = new Searchable[size];
     }
 
+    public SearchEngine() {
+
+    }
+
     public void add(Searchable item) {
         if (count < searchables.length) {
             searchables[count++] = item;
@@ -29,5 +33,9 @@ public class SearchEngine {
             }
         }
         return results;
+    }
+
+    public Searchable findBestMatch(String searchTerm) {
+        return null;
     }
 }

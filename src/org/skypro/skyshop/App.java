@@ -5,9 +5,10 @@ import org.skypro.skyshop.product.Article;
 import org.skypro.skyshop.product.DiscountProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.BestResultNotFoundException;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, BestResultNotFoundException {
 
         DiscountProduct fish = new DiscountProduct("Рыба", 346, 32);
         SimpleProduct meat = new SimpleProduct("Мясо", 86);
@@ -40,7 +41,7 @@ public class App {
 
         Article article01 = new Article("Рыба", "Рыба бывает разная, черная,белая, красная. ");
         Article article02 = new Article("Мясо", "Мясо с высоким содержанием белка и железа. ");
-        Article article03 = new Article("Сып", "Сыр любой разновидности и брэнда. ");
+        Article article03 = new Article("Сыр", "Сыр любой разновидности и брэнда. ");
         Article article04 = new Article("Оливки", "Оливки без косточек. ");
 
         SearchEngine engines = new SearchEngine(10);
@@ -56,15 +57,56 @@ public class App {
         engines.add(oliveOil);
         engines.add(salad);
 
-        for (Searchable engine : engines.search("Рыба")) {
-            if (engine != null) {
-                System.out.println(engine);
-            }
+        try {
+            SimpleProduct invalidSimpleProduct = new SimpleProduct("Рыба", 11);
+            System.out.println("Создан SimpleProduct: " + invalidSimpleProduct.getTitle());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания SimpleProduct: " + e.getMessage());
         }
-        for (Searchable engine : engines.search("Сыр")) {
-            if (engine != null) {
-                System.out.println(engine);
-            }
+
+        try {
+            DiscountProduct invalidDiscountedProduct1 = new DiscountProduct("Мясо", 15, 10);
+            System.out.println("Создан DiscountedProduct: " + invalidDiscountedProduct1.getTitle());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания DiscountedProduct: " + e.getMessage());
+        }
+
+        try {
+            DiscountProduct invalidDiscountedProduct2 = new DiscountProduct("Сыр", 100, 20);
+            System.out.println("Создан DiscountedProduct: " + invalidDiscountedProduct2.getTitle());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания DiscountedProduct: " + e.getMessage());
+        }
+
+        try {
+            SimpleProduct invalidProduct3 = new SimpleProduct("Оливки", 100);
+            System.out.println("Создан SimpleProduct: " + invalidProduct3.getTitle());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания SimpleProduct: " + e.getMessage());
+        }
+
+        try {
+            SimpleProduct validSimpleProduct = new SimpleProduct("Мясо", 86);
+            System.out.println("Создан SimpleProduct: " + validSimpleProduct.getTitle() + ", цена: " + validSimpleProduct.getPrice());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания SimpleProduct: " + e.getMessage());
+        }
+
+        try {
+            DiscountProduct validDiscountedProduct = new DiscountProduct("Салат", 92, 20);
+            System.out.println("Создан DiscountedProduct: " + validDiscountedProduct.getTitle() + ", цена со скидкой: " + validDiscountedProduct.getPrice());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка создания DiscountedProduct: " + e.getMessage());
+        }
+
+        String searchTerm = "world"; // Запрос, который не найдет соответствий
+        SearchEngine searchEngine = new SearchEngine();
+        Searchable bestMatch = searchEngine.findBestMatch(searchTerm);
+        if (bestMatch != null) {
+            System.out.println("Наиболее подходящий объект: " + bestMatch.getSearchTerm());
+        } else {
+            System.out.println("Не найдено подходящих объектов.");
         }
     }
 }
+

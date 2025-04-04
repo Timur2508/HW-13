@@ -22,6 +22,16 @@ public class Article implements Searchable {
     }
 
     @Override
+    public int countOccurrences(String searchTerm, String search) {
+        return 0;
+    }
+
+    @Override
+    public boolean search(String query) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return title + "\n" + text;
     }
