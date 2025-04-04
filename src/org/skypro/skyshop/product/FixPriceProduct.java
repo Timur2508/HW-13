@@ -24,17 +24,15 @@ public class FixPriceProduct extends Product {
 
     @Override
     public String getTitle() {
-        return "";
+        return title;
     }
 
     @Override
     public void setTitle(String title) {
         this.title = title;
-
     }
 
     @Override
     public void setPrice(double price) {
-
     }
 }

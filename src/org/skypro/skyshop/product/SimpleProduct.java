@@ -36,5 +36,4 @@ public class SimpleProduct extends Product {
     public String toString() {
         return "Наименование продукта: " + title + ", Стоимость: " + getPrice() ;
     }
-
 }

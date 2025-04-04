@@ -1,12 +1,13 @@
 package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.Arrays;
 
 public class ProductBasket {
     private static int specialProduct = 0;
-    private Product[] productBasket;
+    private static Product[] productBasket;
 
     public ProductBasket(int weight) {
         this.productBasket = new Product[weight];
@@ -21,7 +22,7 @@ public class ProductBasket {
         return false;
     }
 
-    private boolean isEmpty() {
+    private static boolean isEmpty() {
         for (Product product : productBasket) {
             if (product != null) {
                 return false;
@@ -32,7 +33,7 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         if (!isFreePlace()) {
-            System.out.println("В корзине нет места. Возмите тележку.");
+            System.out.println("В корзине нет места. Возьмите тележку.");
             return;
         }
         for (int i = 0; i < productBasket.length; i++) {
@@ -43,7 +44,7 @@ public class ProductBasket {
         }
     }
 
-    public int getAllPrice() {
+    public static int getAllPrice() {
         int allPrice = 0;
         for (Product products : productBasket) {
             if (products != null) {
@@ -53,7 +54,7 @@ public class ProductBasket {
         return allPrice;
     }
 
-    public void printMyBasket() {
+    public static void printBasket() {
         if (isEmpty()) {
             System.out.println("Корзина пуста.");
             return;
@@ -71,15 +72,13 @@ public class ProductBasket {
         System.out.println("Специальных товаров: " + specialProduct);
     }
 
-    public boolean isNoProductInBasket(String productName) {
+    public void checkBasket(String productName) {
         for (Product product : productBasket) {
-            if (product.getTitle() == productName) {
+            if (product != null && product.getTitle().equals(productName)) {
                 System.out.println("Такой продукт есть в корзине");
-                return false;
             }
         }
         System.out.println("Такого продукта нет в корзине");
-        return true;
     }
 
     public void clearBasket() {
