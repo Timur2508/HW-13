@@ -5,7 +5,7 @@ public class DiscountProduct extends Product {
     protected double basePrice;
     protected int discountInPercent;
 
-    public DiscountProduct(String title, double basePrice, int discountInPercent) throws IllegalAccessException {
+    public DiscountProduct(String title, double basePrice, int discountInPercent) throws RuntimeException, IllegalAccessException {
         super(title);
 
         if (basePrice <= 0) {
