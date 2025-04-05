@@ -12,6 +12,7 @@ public abstract class Product implements Searchable {
         if (title == null || title.isBlank()) {
             throw new IllegalAccessException("название продукта не может быть пустым или состоять только из пробелов");
         }
+
         this.title = title;
     }
 
@@ -37,6 +38,8 @@ public abstract class Product implements Searchable {
     public int hashCode() {
         return Objects.hash(title);
     }
+
+    public abstract int countOccurrences(String searchTerm, String search);
 
     @Override
     public boolean search(String query) {

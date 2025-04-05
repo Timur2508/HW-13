@@ -1,7 +1,10 @@
 package org.skypro.skyshop;
 
-class BestResultNotFoundException extends Exception {
-    public BestResultNotFoundException(String search) {
-        super("Не найдено подходящих объектов для запроса: '" + search + "'");
+import java.io.IOException;
+
+public class BestResultNotFound extends Exception {
+
+    public BestResultNotFound(String request){
+        super(request);
     }
 }

@@ -1,8 +1,5 @@
 package org.skypro.skyshop;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public interface Searchable {
 
     String getSearchTerm();
@@ -10,39 +7,20 @@ public interface Searchable {
     String getContentType();
 
 
-    default void getStringRepresentation(Searchable searchable) {
-        System.out.println(getSearchTerm() + getContentType());
+    default String getStringRepresentation(Searchable searchable){
+        return searchable.getSearchTerm() + searchable.getContentType();
     }
 
-    List<Searchable> searchables = new ArrayList<>();
-
-    public default void addSearchable(Searchable searchable) {
-        if (searchables.add(searchable)) ;
-
-    }
-
-    public default Searchable findBestMatch(String search) throws BestResultNotFoundException {
-        if (searchables.isEmpty()) {
-            throw new BestResultNotFoundException(search);
+    default int getSearchTerm(String str, String substr){
+        int count = 0;
+        int index = 0;
+        int indexSubstr = str.indexOf(substr, index);
+        while (indexSubstr != -1) {
+            count++;
+            index = indexSubstr + substr.length();
+            indexSubstr = str.indexOf(substr, index);
         }
-
-        Searchable bestMatch = null;
-        int maxOccurrences = 0;
-
-        for (Searchable searchable : searchables) {
-            String searchTerm = searchable.getSearchTerm();
-            int occurrences = countOccurrences(searchTerm, search);
-
-            if (occurrences > occurrences) {
-                maxOccurrences = occurrences;
-                bestMatch = searchable;
-            }
-        }
-        if (bestMatch == null) {
-            throw new BestResultNotFoundException(search);
-        }
-
-        return bestMatch;
+        return count;
     }
 
     int countOccurrences(String searchTerm, String search);

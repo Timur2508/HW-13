@@ -5,10 +5,10 @@ import org.skypro.skyshop.product.Article;
 import org.skypro.skyshop.product.DiscountProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
-import org.skypro.skyshop.BestResultNotFoundException;
+import org.skypro.skyshop.BestResultNotFound;
 
 public class App {
-    public static void main(String[] args) throws IllegalAccessException, BestResultNotFoundException {
+    public static void main(String[] args) throws IllegalAccessException, BestResultNotFound {
 
         DiscountProduct fish = new DiscountProduct("Рыба", 346, 32);
         SimpleProduct meat = new SimpleProduct("Мясо", 86);
@@ -99,8 +99,8 @@ public class App {
             System.err.println("Ошибка создания DiscountedProduct: " + e.getMessage());
         }
 
-        String searchTerm = "world"; // Запрос, который не найдет соответствий
-        SearchEngine searchEngine = new SearchEngine();
+        String searchTerm = "world";
+        SearchEngine searchEngine = new SearchEngine(10);
         Searchable bestMatch = searchEngine.findBestMatch(searchTerm);
         if (bestMatch != null) {
             System.out.println("Наиболее подходящий объект: " + bestMatch.getSearchTerm());
