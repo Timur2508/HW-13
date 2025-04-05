@@ -8,7 +8,7 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.BestResultNotFound;
 
 public class App {
-    public static void main(String[] args) throws IllegalAccessException, BestResultNotFound {
+    public static void main(String[] args) throws RuntimeException, BestResultNotFound, IllegalAccessException {
 
         DiscountProduct fish = new DiscountProduct("Рыба", 346, 32);
         SimpleProduct meat = new SimpleProduct("Мясо", 86);
