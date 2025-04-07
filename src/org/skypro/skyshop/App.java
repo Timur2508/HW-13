@@ -1,14 +1,14 @@
 package org.skypro.skyshop;
 
+
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.Article;
 import org.skypro.skyshop.product.DiscountProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
-import org.skypro.skyshop.BestResultNotFound;
 
 public class App {
-    public static void main(String[] args) throws RuntimeException, BestResultNotFound, IllegalAccessException {
+    public static void main(String[] args) throws IllegalAccessException {
 
         DiscountProduct fish = new DiscountProduct("Рыба", 346, 32);
         SimpleProduct meat = new SimpleProduct("Мясо", 86);
@@ -27,7 +27,7 @@ public class App {
         basket.addProduct(meat);
         basket.addProduct(oliveOil);
 
-        ProductBasket.printBasket();
+        basket.printBasket();
 
         basket.checkBasket("Оливки");
         basket.checkBasket("Конфеты");

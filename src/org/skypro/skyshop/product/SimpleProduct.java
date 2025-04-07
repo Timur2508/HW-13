@@ -27,7 +27,7 @@ public class SimpleProduct extends Product {
         this.price = price;
     }
 
-    public SimpleProduct(String title, double price) throws RuntimeException, IllegalAccessException {
+    public SimpleProduct(String title, double price) throws IllegalAccessException {
         super(title);
         if (price <= 0) {
             throw new IllegalAccessException("цена продукта должна быть строго больще 0.");

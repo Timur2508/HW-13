@@ -54,7 +54,7 @@ public class ProductBasket {
         return allPrice;
     }
 
-    public static void printBasket() {
+    public void printBasket() {
         if (isEmpty()) {
             System.out.println("Корзина пуста.");
             return;
