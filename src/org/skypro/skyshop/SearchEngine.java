@@ -1,70 +1,60 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.product.DiscountProduct;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
-    private final Searchable[] searchables;
-    private int count;
+    private List<Searchable> searchables = new ArrayList<>();
 
-    public SearchEngine(int size){
-        this.searchables = new Searchable[size];
-        count = 0;
+    public SearchEngine() {
+        this.searchables = new ArrayList<>();
     }
 
-    public String search (String text){
-        Searchable[] result = new Searchable[5];
-        int i = 0;
-        for (Searchable s: searchables){
-            if (s == null){
-                break;
-            }
-            if (i == result.length){
-                return "Мест нет";
-            }
-            String term = s.getSearchTerm();
-            if (term.contains(text)) {
-                result[i] = s;
-                i++;
-            }
-        }
-        return printResult(result);
+    public SearchEngine (int initialCapacity) {
+        this.searchables = new ArrayList<>(initialCapacity);
     }
 
-    public void add (Searchable searchable){
-        if (count == searchables.length) {
-            System.out.println("Нет места");
-            return;
-        }
-        searchables[count] = searchable;
-        count++;
+    public void addSearchable(Searchable searchable) {
+        this.searchables.add(searchable);
     }
 
-    public String printResult(Searchable[] searchable){
-        StringBuilder s = new StringBuilder();
-        for (Searchable search: searchable){
-            if (search != null){
-                s.append(search).append('\n');
+    public List<Searchable> findBestMatches(String search) {
+        List<Searchable> bestMatches = new ArrayList<>();
+        int maxOccurrences = 0;
+
+        for (Searchable searchable : searchables) {
+            String searchTerm = searchable.getSearchTerm();
+            int occurrences = countOccurrences(searchTerm, search);
+
+            if (occurrences > 0) {
+                if (occurrences > maxOccurrences) {
+                    bestMatches.clear();
+                    bestMatches.add(searchable);
+                    maxOccurrences = occurrences;
+                } else if (occurrences == maxOccurrences) {
+                    bestMatches.add(searchable);
+                }
             }
         }
-        return s.toString();
 
+        return bestMatches;
     }
 
-    public Searchable bestSearchByTerm (String substr) throws BestResultNotFound {
-        int match = 0;
-        Searchable searchable = null;
-        for (Searchable search: searchables) {
-            if(search == null){
-                continue;
-            }
-            int countMatch = search.getSearchTerm(search.getSearchTerm(), substr);
-            if (match < countMatch) {
-                match = countMatch;
-                searchable = search;
-            }
+    private int countOccurrences(String text, String subString) {
+        if (text == null || subString == null || subString.isEmpty()) {
+            return 0;
         }
-        if (searchable == null){
-            throw new BestResultNotFound("Для запроса " + substr + " совпадений не найдено.");
+
+        int count = 0;
+        int index = 0;
+        while ((index = text.toLowerCase().indexOf(subString.toLowerCase(), index)) != -1) {
+            count++;
+            index += subString.length();
         }
-        return searchable;
+        return count;
+
     }
 
     public Searchable findBestMatch(String searchTerm) {
