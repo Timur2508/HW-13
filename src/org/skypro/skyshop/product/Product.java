@@ -39,15 +39,25 @@ public abstract class Product implements Searchable {
         return Objects.hash(title);
     }
 
-    public abstract int countOccurrences(String searchTerm, String search);
-
-    @Override
-    public boolean search(String query) {
-        return title.toLowerCase().contains(query.toLowerCase());
-    }
-
     public abstract void setPrice(double price);
 
     @Override
-    public abstract String toString();
+    public int countOccurrences(String searchTerm, String search) {
+        String str = this.getStringRepresentation(this).toLowerCase();
+        String substr = search.toLowerCase();
+        int count = 0;
+        int index = 0;
+        int indexSubstr = str.indexOf(substr, index);
+        while (indexSubstr != -1) {
+            count++;
+            index = indexSubstr + substr.length();
+            indexSubstr = str.indexOf(substr, index);
+        }
+        return count;
+    }
+
+    @Override
+    public boolean search(String query) {
+        return countOccurrences(getSearchTerm(), query) > 0;
+    }
 }

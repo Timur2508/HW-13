@@ -4,6 +4,8 @@ import org.skypro.skyshop.product.DiscountProduct;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private List<Searchable> searchables = new ArrayList<>();
@@ -12,7 +14,7 @@ public class SearchEngine {
         this.searchables = new ArrayList<>();
     }
 
-    public SearchEngine (int initialCapacity) {
+    public SearchEngine(int initialCapacity) {
         this.searchables = new ArrayList<>(initialCapacity);
     }
 
@@ -20,22 +22,13 @@ public class SearchEngine {
         this.searchables.add(searchable);
     }
 
-    public List<Searchable> findBestMatches(String search) {
-        List<Searchable> bestMatches = new ArrayList<>();
-        int maxOccurrences = 0;
+    // Модифицированный метод поиска, возвращающий отсортированную по имени Map
+    public SortedMap<String, Searchable> findBestMatches(String search) {
+        SortedMap<String, Searchable> bestMatches = new TreeMap<>();
 
         for (Searchable searchable : searchables) {
-            String searchTerm = searchable.getSearchTerm();
-            int occurrences = countOccurrences(searchTerm, search);
-
-            if (occurrences > 0) {
-                if (occurrences > maxOccurrences) {
-                    bestMatches.clear();
-                    bestMatches.add(searchable);
-                    maxOccurrences = occurrences;
-                } else if (occurrences == maxOccurrences) {
-                    bestMatches.add(searchable);
-                }
+            if (searchable.search(search)) { // Используем метод search() из интерфейса
+                bestMatches.put(searchable.getSearchTerm(), searchable);
             }
         }
 
@@ -54,7 +47,6 @@ public class SearchEngine {
             index += subString.length();
         }
         return count;
-
     }
 
     public Searchable findBestMatch(String searchTerm) {

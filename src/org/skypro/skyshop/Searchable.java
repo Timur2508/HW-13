@@ -3,15 +3,13 @@ package org.skypro.skyshop;
 public interface Searchable {
 
     String getSearchTerm();
-
     String getContentType();
 
-
-    default String getStringRepresentation(Searchable searchable){
+    default String getStringRepresentation(Searchable searchable) {
         return searchable.getSearchTerm() + searchable.getContentType();
     }
 
-    default int getSearchTerm(String str, String substr){
+    default int getSearchTerm(String str, String substr) {
         int count = 0;
         int index = 0;
         int indexSubstr = str.indexOf(substr, index);
@@ -24,6 +22,5 @@ public interface Searchable {
     }
 
     int countOccurrences(String searchTerm, String search);
-
     boolean search(String query);
 }
