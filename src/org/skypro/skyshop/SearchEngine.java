@@ -1,34 +1,31 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.product.DiscountProduct;
+import org.skypro.skyshop.product.SearchableComparator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchables = new ArrayList<>();
+    private Set<Searchable> searchables = new HashSet<>();
 
     public SearchEngine() {
-        this.searchables = new ArrayList<>();
+        this.searchables = new HashSet<>();
     }
 
     public SearchEngine(int initialCapacity) {
-        this.searchables = new ArrayList<>(initialCapacity);
+        this.searchables = new HashSet<>(initialCapacity);
     }
 
     public void addSearchable(Searchable searchable) {
         this.searchables.add(searchable);
     }
 
-    // Модифицированный метод поиска, возвращающий отсортированную по имени Map
-    public SortedMap<String, Searchable> findBestMatches(String search) {
-        SortedMap<String, Searchable> bestMatches = new TreeMap<>();
+    public SortedSet<Searchable> findBestMatches(String search) {
+        SortedSet<Searchable> bestMatches = new TreeSet<>(new SearchableComparator());
 
         for (Searchable searchable : searchables) {
-            if (searchable.search(search)) { // Используем метод search() из интерфейса
-                bestMatches.put(searchable.getSearchTerm(), searchable);
+            if (searchable.getSearchTerm().contains(search)) {
+                bestMatches.add(searchable);
             }
         }
 
@@ -47,9 +44,5 @@ public class SearchEngine {
             index += subString.length();
         }
         return count;
-    }
-
-    public Searchable findBestMatch(String searchTerm) {
-        return null;
     }
 }

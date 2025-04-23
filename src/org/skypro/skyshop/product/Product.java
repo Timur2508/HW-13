@@ -6,23 +6,28 @@ import java.util.Objects;
 
 public abstract class Product implements Searchable {
 
-    protected String title;
+    private String title;
 
     public Product(String title) throws IllegalAccessException {
+        this.title = title;
         if (title == null || title.isBlank()) {
             throw new IllegalAccessException("название продукта не может быть пустым или состоять только из пробелов");
         }
-
-        this.title = title;
     }
-
-    public abstract String getTitle();
-
-    public abstract void setTitle(String title);
 
     public abstract double getPrice();
 
-    public abstract boolean isSpecial();
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isSpecial() {
+        return false;
+    }
 
     @Override
     public String getSearchTerm() {
@@ -32,32 +37,5 @@ public abstract class Product implements Searchable {
     @Override
     public String getContentType() {
         return "PRODUCT";
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title);
-    }
-
-    public abstract void setPrice(double price);
-
-    @Override
-    public int countOccurrences(String searchTerm, String search) {
-        String str = this.getStringRepresentation(this).toLowerCase();
-        String substr = search.toLowerCase();
-        int count = 0;
-        int index = 0;
-        int indexSubstr = str.indexOf(substr, index);
-        while (indexSubstr != -1) {
-            count++;
-            index = indexSubstr + substr.length();
-            indexSubstr = str.indexOf(substr, index);
-        }
-        return count;
-    }
-
-    @Override
-    public boolean search(String query) {
-        return countOccurrences(getSearchTerm(), query) > 0;
     }
 }

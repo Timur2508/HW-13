@@ -2,37 +2,42 @@ package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.Searchable;
 
-public class Article implements Searchable {
-    private final String title;
-    private final String text;
+import java.util.Objects;
 
-    public Article(String title, String text) {
+public class Article implements Searchable {
+    private String title;
+    private String contentType;
+
+    public Article(String title, String contentType) {
         this.title = title;
-        this.text = text;
+        this.contentType = contentType;
     }
 
     @Override
     public String getSearchTerm() {
-        return toString();
+        return title;
     }
 
     @Override
     public String getContentType() {
-        return "ARTICLE";
+        return contentType;
     }
 
     @Override
-    public int countOccurrences(String searchTerm, String search) {
-        return 0;
+    public String getTitle() {
+        return title;
     }
 
     @Override
-    public boolean search(String query) {
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(title, article.title);
     }
 
     @Override
-    public String toString() {
-        return title + "\n" + text;
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }

@@ -7,8 +7,7 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.SortedSet;
 
 public class App {
     public static void main(String[] args) throws IllegalAccessException {
@@ -71,14 +70,14 @@ public class App {
         searchEngine.addSearchable(salad);
 
         String searchTerm = "Салат";
-        SortedMap<String, Searchable> bestMatches = searchEngine.findBestMatches(searchTerm);
+        SortedSet<Searchable> bestMatches = searchEngine.findBestMatches(searchTerm);
 
         if (bestMatches.isEmpty()) {
             System.out.println("Не найдено подходящих объектов.");
         } else {
-            System.out.println("Найдены подходящие объекты /");
-            for (Map.Entry<String, Searchable> entry : bestMatches.entrySet()) {
-                System.out.println("- " + entry.getKey() + ": " + entry.getValue().getSearchTerm());
+            System.out.println("Найдены подходящие объекты.");
+            for (Searchable searchable : bestMatches) {
+                System.out.println(searchable.getStringRepresentation(searchable));
             }
 
             try {
@@ -126,9 +125,9 @@ public class App {
             if (bestMatches.isEmpty()) {
                 System.out.println("Не найдено подходящих объектов.");
             } else {
-                System.out.println("Найдены подходящие объекты (отсортировано по имени):");
-                for (Map.Entry<String, Searchable> entry : bestMatches.entrySet()) {
-                    System.out.println("- " + entry.getKey() + ": " + entry.getValue().getSearchTerm());
+                System.out.println("Найдены подходящие объекты (отсортировано по длине названия):");
+                for (Searchable searchable : bestMatches) {
+                    System.out.println(searchable.getStringRepresentation(searchable));
                 }
             }
         }

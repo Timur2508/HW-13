@@ -25,35 +25,11 @@ public class DiscountProduct extends Product {
 
     @Override
     public String toString() {
-        return "Наименование продукта со скидкой: " + title + ", Стоимость: " + getPrice() + " (скидка: " + discountInPercent + "%)";
+        return "Наименование продукта со скидкой: " + getTitle() + ", Стоимость: " + getPrice() + " (скидка: " + discountInPercent + "%)";
     }
 
     @Override
     public boolean isSpecial() {
         return true;
-    }
-
-    @Override
-    public void setPrice(double price) {
-
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public void setTitle(String title) {
-    }
-
-    @Override
-    public int countOccurrences(String searchTerm, String search) {
-        return 0;
-    }
-
-    @Override
-    public boolean search(String query) {
-        return false;
     }
 }
