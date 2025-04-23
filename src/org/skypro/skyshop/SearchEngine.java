@@ -4,6 +4,7 @@ import org.skypro.skyshop.product.DiscountProduct;
 import org.skypro.skyshop.product.SearchableComparator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private Set<Searchable> searchables = new HashSet<>();
@@ -21,15 +22,10 @@ public class SearchEngine {
     }
 
     public SortedSet<Searchable> findBestMatches(String search) {
-        SortedSet<Searchable> bestMatches = new TreeSet<>(new SearchableComparator());
 
-        for (Searchable searchable : searchables) {
-            if (searchable.getSearchTerm().contains(search)) {
-                bestMatches.add(searchable);
-            }
-        }
-
-        return bestMatches;
+        return searchables.stream()
+                .filter(searchable -> searchable.getSearchTerm().contains(search))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchableComparator())));
     }
 
     private int countOccurrences(String text, String subString) {
